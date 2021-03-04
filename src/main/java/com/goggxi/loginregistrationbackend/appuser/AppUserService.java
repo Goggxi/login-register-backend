@@ -38,6 +38,9 @@ public class AppUserService implements UserDetailsService {
         boolean emailExist = appUserRepository.findByEmail(appUser.getEmail())
                 .isPresent();
         if (emailExist){
+            // TODO: handle email taken no confirmed
+
+
             throw new IllegalStateException("email already taken");
         }
 
@@ -60,6 +63,8 @@ public class AppUserService implements UserDetailsService {
 
         //save confirmation token to database
         confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        //TODO: Send Email
 
         return token;
     }
